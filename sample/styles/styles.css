@@ -1,0 +1,130 @@
+.root{
+    -fx-font-size: 10pt;
+    -fx-font-family: "Constantia";
+}
+
+.border-pane{
+    -fx-border-color: "#5EBF5E";
+}
+
+.button, .toggle-button, .color-picker, .text-field{
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+#imgClearButton, #txtClearButton{
+    -fx-border-color: "#CECECE";
+    -fx-background-image: url("/images/clear0.png");
+}
+
+#imgClearButton:hover, #txtClearButton:hover{
+    -fx-border-color: "#D13C30";
+    -fx-background-image: url("/images/clear1.png");
+}
+
+.button, .color-picker{
+    -fx-border-color: "#5EBF5E";
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: "#5EBF5E";
+}
+.button:hover, .color-picker:hover{
+    -fx-border-color: "#5EBF5E";
+    -fx-background-color: "#5EBF5E";
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+}
+
+.text-field{
+    -fx-border-color: "#5EBF5E";
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+#gardenButton{
+    -fx-font-size: 12pt;
+}
+
+#circleButton{
+    -fx-background-image: url("/images/circle0.png");
+}
+#circleButton:hover{
+    -fx-background-image: url("/images/circle1.png");
+}
+#circleButton:selected{
+    -fx-background-image: url("/images/circle2.png");
+}
+
+#rectangleButton{
+    -fx-background-image: url("/images/rectangle0.png");
+}
+#rectangleButton:hover{
+    -fx-background-image: url("/images/rectangle1.png");
+}
+#rectangleButton:selected{
+    -fx-background-image: url("/images/rectangle2.png");
+}
+
+#polygonButton{
+    -fx-background-image: url("/images/polygon0.png");
+}
+#polygonButton:hover{
+    -fx-background-image: url("/images/polygon1.png");
+}
+#polygonButton:selected{
+    -fx-background-image: url("/images/polygon2.png");
+}
+
+#moveButton{
+    -fx-background-image: url("/images/move0.png");
+}
+#moveButton:hover{
+    -fx-background-image: url("/images/move1.png");
+}
+#moveButton:selected{
+    -fx-background-image: url("/images/move2.png");
+}
+
+.menu-bar .container .menu-button:hover{
+    -fx-background-color: "#5EBF5E";
+}
+
+.menu-bar .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: "#5EBF5E";
+}
+
+.menu-bar .label:hover {
+    -fx-text-fill: white;
+}
+
+.menu:showing{
+    -fx-background-color: transparent;
+}
+
+.menu-item .label {
+    -fx-text-fill: "#5EBF5E";
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+    -fx-text-fill: white;
+    -fx-background-color: "#5EBF5E";
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+}
+
+.bolded{
+    -fx-font-weight: bold;
+}
