@@ -5,6 +5,17 @@ Garden design program for amateurs with an easy-to-use interface. The creation o
 * interface in English
 *  window with observable list of plants
 
+## Installation
+Download [GardenViewer.jar](https://github.com/grigorgd/GardenViewer/tree/master/GardenViewer_jar/GardenViewer.jar) and execute the following command:
+```
+java -jar GardenViewer.jar
+```
+or (if you are windows user and you like double click)
+```
+on GardenViewer.jar right click -> properties -> open with -> navigate to jre - most often:(C:\Program Files\Java\jre) -> bin\javaw.exe
+```
+
+
 ## Built With
 * java version "1.8.0_192"
 
