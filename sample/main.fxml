@@ -95,6 +95,7 @@
             <Menu mnemonicParsing="false" text="Opcje">
               <items>
                   <CheckMenuItem fx:id="showNamesMenuItem" mnemonicParsing="false" text="Pokaż nazwy" />
+                  <MenuItem fx:id="showListMenuItem" mnemonicParsing="false" text="Pokaż spis" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Siatka">

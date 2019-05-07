@@ -128,3 +128,12 @@
 .bolded{
     -fx-font-weight: bold;
 }
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: "#5EBF5E";
+}
+
+.table-row-cell:selected {
+    -fx-background-color: "#5EBF5E";
+}

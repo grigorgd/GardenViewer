@@ -12,4 +12,6 @@ public interface Zone {
 
     public void setPlant(boolean plant);
 
+    public boolean isPlant();
+
 }

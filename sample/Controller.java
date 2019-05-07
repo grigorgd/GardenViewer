@@ -73,6 +73,8 @@ public class Controller {
     @FXML
     private CheckMenuItem showNamesMenuItem;
     @FXML
+    private MenuItem showListMenuItem;
+    @FXML
     private CheckMenuItem noGrid, smallGrid, mediumGrid, bigGrid;
 
     @FXML
@@ -245,6 +247,10 @@ public class Controller {
             for(Shape sh : zones.keySet()){
                 ((Zone)sh).setTextVisible(showNamesMenuItem.isSelected());
             }
+        });
+
+        showListMenuItem.setOnAction(event -> {
+            PlantTable.display(workingArea.getScene().getWindow().getX(), workingArea.getScene().getWindow().getY(), zones);
         });
 
 

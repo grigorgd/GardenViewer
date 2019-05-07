@@ -82,4 +82,8 @@ public class RectangleZone extends Rectangle implements Zone {
         this.plant = plant;
     }
 
+    public boolean isPlant(){
+        return plant;
+    }
+
 }

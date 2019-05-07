@@ -78,5 +78,9 @@ public class CircleZone extends Circle implements Zone{
         this.plant = plant;
     }
 
+    public boolean isPlant(){
+        return plant;
+    }
+
 
 }

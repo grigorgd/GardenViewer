@@ -101,4 +101,8 @@ public class PolygonZone extends Polygon implements Zone {
         this.plant = plant;
     }
 
+    public boolean isPlant(){
+        return plant;
+    }
+
 }
