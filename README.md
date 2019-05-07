@@ -3,7 +3,7 @@ Garden design program for amateurs with an easy-to-use interface. The creation o
 
 ## Planned to be implemented
 * interface in English
-*  window with observable list of plants
+* printing
 
 ## Installation
 Download [GardenViewer.jar](https://github.com/grigorgd/GardenViewer/tree/master/GardenViewer_jar/GardenViewer.jar) and execute the following command:
