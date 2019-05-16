@@ -54,14 +54,22 @@ public class PlantView extends HBox {
         nameText.getStyleClass().add("bolded");
         Text latinText = new Text("Nazwa łacińska: ");
         latinText.getStyleClass().add("bolded");
+        Text groupText = new Text("Grupa: ");
+        groupText.getStyleClass().add("bolded");
+        Text formText = new Text("Forma: ");
+        formText.getStyleClass().add("bolded");
         Text soilText = new Text("Gleba: ");
         soilText.getStyleClass().add("bolded");
         Text reactionText = new Text("Odczyn: ");
         reactionText.getStyleClass().add("bolded");
+        Text waterText = new Text("Wilgotność");
+        waterText.getStyleClass().add("bolded");
         Text positionText = new Text("Stanowisko: ");
         positionText.getStyleClass().add("bolded");
-        Text otherText = new Text("Inne: ");
-        otherText.getStyleClass().add("bolded");
+        Text frostText = new Text("Mróz: ");
+        frostText.getStyleClass().add("bolded");
+        Text pestDisease = new Text("Choroby i szkodniki: ");
+        pestDisease.getStyleClass().add("bolded");
 
         if(txtFile != null && txtFile.exists()){
             String desc = TextLoader.read(txtFile.toURI().getPath());
@@ -71,10 +79,13 @@ public class PlantView extends HBox {
             Text text2 = new Text(split[2] + "\n");
             Text text3 = new Text(split[3] + "\n");
             Text text4 = new Text(split[4] + "\n");
-            String[] otherSplit = split[5].split(";");
-            Text text5 = new Text(String.join("\n", otherSplit));
+            Text text5 = new Text(split[5] + "\n");
+            Text text6 = new Text(split[6] + "\n");
+            Text text7 = new Text(split[7] + "\n");
+            Text text8 = new Text(split[8] + "\n");
+            Text text9 = new Text(split[9] + "\n");
 
-            TextFlow descLabel = new TextFlow(nameText, text0, latinText, text1, soilText, text2, reactionText, text3, positionText, text4, otherText, text5);
+            TextFlow descLabel = new TextFlow(nameText, text0, latinText, text1, groupText, text2, formText, text3, soilText, text4, reactionText, text5, waterText, text6, positionText, text7, frostText, text8, pestDisease, text9);
             descLabel.setMaxWidth(280);
 
             descBox.getChildren().add(descLabel);

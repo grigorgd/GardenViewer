@@ -1,14 +1,16 @@
 package sample;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ContentManager {
 
     public static void save(String string, String path){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(path))){
-            bw.write(string);
-        }catch(FileNotFoundException ex){
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))){
+            writer.write(string);
+        }
+        catch(FileNotFoundException ex){
             ex.printStackTrace();
         }
         catch(IOException ex){
@@ -18,14 +20,16 @@ public class ContentManager {
 
     public static ArrayList<String> load(String path){
         ArrayList<String> result = new ArrayList<>();
-
         String line = "";
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
-            while((line = br.readLine()) != null){
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))){
+            while((line = reader.readLine()) != null){
                 result.add(line);
             }
         }
-        catch(IOException ex) {
+        catch(FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        catch(IOException ex){
             ex.printStackTrace();
         }
         return result;

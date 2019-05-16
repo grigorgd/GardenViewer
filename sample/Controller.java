@@ -5,14 +5,20 @@ import javafx.event.EventHandler;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.util.*;
 import java.util.prefs.Preferences;
@@ -76,6 +82,9 @@ public class Controller {
     private MenuItem showListMenuItem;
     @FXML
     private CheckMenuItem noGrid, smallGrid, mediumGrid, bigGrid;
+    int gridSize = 1;
+    @FXML
+    private Label positionLabel;
 
     @FXML
     public void initialize(){
@@ -258,6 +267,7 @@ public class Controller {
             smallGrid.setSelected(false);
             mediumGrid.setSelected(false);
             bigGrid.setSelected(false);
+            setGridSize(1);
             workingArea.setStyle("-fx-background-color: white;");
         });
 
@@ -265,6 +275,7 @@ public class Controller {
             noGrid.setSelected(false);
             mediumGrid.setSelected(false);
             bigGrid.setSelected(false);
+            setGridSize(20);
             workingArea.setStyle("-fx-background-color: white,\n" +
                     "linear-gradient(from 0px 0px to 10px 0px, repeat, " + DEFAULT_GRID_COLOR + " 4%, transparent 8%),\n" +
                     "linear-gradient(from 0px 0px to 0px 10px, repeat, " + DEFAULT_GRID_COLOR + " 4%, transparent 8%);");
@@ -274,6 +285,7 @@ public class Controller {
             smallGrid.setSelected(false);
             noGrid.setSelected(false);
             bigGrid.setSelected(false);
+            setGridSize(40);
             workingArea.setStyle("-fx-background-color: white,\n" +
                     "linear-gradient(from 0px 0px to 20px 0px, repeat, " + DEFAULT_GRID_COLOR + " 2%, transparent 4%),\n" +
                     "linear-gradient(from 0px 0px to 0px 20px, repeat, " + DEFAULT_GRID_COLOR + " 2%, transparent 4%);");
@@ -283,6 +295,7 @@ public class Controller {
             smallGrid.setSelected(false);
             mediumGrid.setSelected(false);
             noGrid.setSelected(false);
+            setGridSize(80);
             workingArea.setStyle("-fx-background-color: white,\n" +
                     "linear-gradient(from 0px 0px to 40px 0px, repeat, " + DEFAULT_GRID_COLOR + " 1%, transparent 2%),\n" +
                     "linear-gradient(from 0px 0px to 0px 40px, repeat, " + DEFAULT_GRID_COLOR + " 1%, transparent 2%);");
@@ -302,18 +315,22 @@ public class Controller {
         int grid = prefs.getInt("grid", 0);
         if(grid == 0){
             noGrid.setSelected(true);
+            setGridSize(1);
             noGrid.fire();
         }
         else if(grid == 1){
             smallGrid.setSelected(true);
+            setGridSize(20);
             smallGrid.fire();
         }
         else if(grid == 2){
             mediumGrid.setSelected(true);
+            setGridSize(40);
             mediumGrid.fire();
         }
         else{
             bigGrid.setSelected(true);
+            setGridSize(80);
             bigGrid.fire();
         }
 
@@ -379,7 +396,7 @@ public class Controller {
                                         workingArea.getChildren().remove(garden);
                                         garden = new PolygonGarden(coordinates);
                                         garden.setStrokeType(StrokeType.OUTSIDE);
-                                        garden.setOpacity(0.8);
+                                        garden.setOpacity(0.6);
                                         workingArea.getChildren().add(garden);
                                         garden.toBack();
                                     }
@@ -402,46 +419,52 @@ public class Controller {
                     }
                     if(!polygonButton.isSelected() && !circleButton.isSelected() && !rectangleButton.isSelected() && !moveButton.isSelected()){
 
-                        EventTarget target = event.getTarget();
-                        if(target instanceof Zone){
-                            Shape shape;
-                            String name = "";
-                            File txtFile;
-                            File imgFile;
-                            if(target.getClass().equals(CircleZone.class)){
-                                shape = (CircleZone)target;
-                                name = ((CircleZone) shape).getName();
-                            }
-                            else if(target.getClass().equals(RectangleZone.class)){
-                                shape = (RectangleZone)target;
-                                name = ((RectangleZone) shape).getName();
+                        if(event.getTarget() instanceof Zone){
+
+                            int result = OptionView.display(workingArea.getScene().getWindow().getX() + event.getX() - event.getX() * scrollArea.getHvalue(),
+                                    workingArea.getScene().getWindow().getY() + event.getY() - event.getY() * scrollArea.getVvalue());
+                            if(result != 0){
+                                EventTarget target = event.getTarget();
+                                Shape shape;
+                                String name = "";
+                                File txtFile;
+                                File imgFile;
+                                if(result == 1){
+                                    if(target.getClass().equals(CircleZone.class)){
+                                        shape = (CircleZone)target;
+                                        name = ((CircleZone) shape).getName();
+                                    }
+                                    else if(target.getClass().equals(RectangleZone.class)){
+                                        shape = (RectangleZone)target;
+                                        name = ((RectangleZone) shape).getName();
+                                    }
+                                    else{
+                                        shape = (PolygonZone)target;
+                                        name = ((PolygonZone) shape).getName();
+                                    }
+                                    currentShape = shape;
+                                    nameTextField.setText(name);
+                                    colorPicker.setValue((Color)shape.getStroke());
+                                    strokeWidth = (int)shape.getStrokeWidth();
+                                    strokeButton.setText("grubość = " + strokeWidth);
+                                    txtFile = zones.get(shape).getTxtFile();
+                                    setTxtFile(txtFile);
+                                    if(txtFile == null) descLabel.setText("");
+                                    else descLabel.setText(txtFile.getName());
+                                    imgFile = zones.get(shape).getImgFile();
+                                    setImgFile(imgFile);
+                                    if(imgFile == null) imageLabel.setText("");
+                                    else imageLabel.setText(imgFile.getName());
+                                    changes = true;
+                                }
+                                else if(result == 2){
+                                    zones.remove((Zone) target);
+                                    workingArea.getChildren().remove((Zone) target);
+                                    changes = true;
+                                }
                             }
                             else{
-                                shape = (PolygonZone)target;
-                                name = ((PolygonZone) shape).getName();
-                            }
-
-                            int result = OptionView.display(workingArea.getScene().getWindow().getX() + event.getX(), workingArea.getScene().getWindow().getY() + event.getY());
-                            if(result == 1){
-                                currentShape = shape;
-                                nameTextField.setText(name);
-                                colorPicker.setValue((Color)shape.getStroke());
-                                strokeWidth = (int)shape.getStrokeWidth();
-                                strokeButton.setText("grubość = " + strokeWidth);
-                                txtFile = zones.get(shape).getTxtFile();
-                                setTxtFile(txtFile);
-                                if(txtFile == null) descLabel.setText("");
-                                else descLabel.setText(txtFile.getName());
-                                imgFile = zones.get(shape).getImgFile();
-                                setImgFile(imgFile);
-                                if(imgFile == null) imageLabel.setText("");
-                                else imageLabel.setText(imgFile.getName());
-                                changes = true;
-                            }
-                            else if(result == 2){
-                                zones.remove(shape);
-                                workingArea.getChildren().remove(shape);
-                                changes = true;
+                                currentShape = null;
                             }
                         }
                     }
@@ -554,6 +577,13 @@ public class Controller {
                 }
             }
         });
+
+        workingArea.addEventFilter(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                positionLabel.setText((int)(Math.ceil(event.getX() / gridSize)) + " x " + (int)(Math.ceil(event.getY() / gridSize)));
+            }
+        });
     }
 
     private void showingDescription(){
@@ -625,6 +655,14 @@ public class Controller {
         else{
             Platform.exit();
         }
+    }
+
+    private void setGridSize(int gridSize){
+        this.gridSize = gridSize;
+    }
+
+    private int getGridSize(){
+        return gridSize;
     }
 
 

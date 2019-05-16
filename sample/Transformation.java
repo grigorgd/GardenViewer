@@ -88,6 +88,7 @@ public class Transformation {
                     shape = new PolygonGarden(points);
                     shape.setStrokeWidth(Double.parseDouble(split[2]));
                     shape.setStroke(Paint.valueOf(split[3]));
+                    shape.setOpacity(0.6);
                 }
                 else{
                     shape = new PolygonZone(points);
