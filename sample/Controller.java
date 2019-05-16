@@ -596,8 +596,8 @@ public class Controller {
                         Shape shape = (Shape) target;
                         if(zones.get(shape).getTxtFile() != null || zones.get(shape).getImgFile() != null){
                             PlantView.display(zones.get(shape).getImgFile(), zones.get(shape).getTxtFile(),
-                                    workingArea.getScene().getWindow().getX() + event.getX(),
-                                    workingArea.getScene().getWindow().getY() + event.getY());
+                                    workingArea.getScene().getWindow().getX() + 100,
+                                    workingArea.getScene().getWindow().getY() + 200);
                         }
                     }
                 }
