@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class PlantView extends HBox {
     private static final double MIN_X = 150.0;
@@ -72,20 +73,14 @@ public class PlantView extends HBox {
         pestDisease.getStyleClass().add("bolded");
 
         if(txtFile != null && txtFile.exists()){
-            String desc = TextLoader.read(txtFile.toURI().getPath());
-            String[] split = desc.split("\n");
-            Text text0 = new Text(split[0] + "\n");
-            Text text1 = new Text(split[1] + "\n");
-            Text text2 = new Text(split[2] + "\n");
-            Text text3 = new Text(split[3] + "\n");
-            Text text4 = new Text(split[4] + "\n");
-            Text text5 = new Text(split[5] + "\n");
-            Text text6 = new Text(split[6] + "\n");
-            Text text7 = new Text(split[7] + "\n");
-            Text text8 = new Text(split[8] + "\n");
-            Text text9 = new Text(split[9] + "\n");
+            ArrayList<String> att = ContentManager.load(txtFile.toURI().getPath());
+            Text[] textArray = new Text[att.size()];
+            for(int i = 0; i < textArray.length; i++){
+                textArray[i] = new Text(att.get(i) + "\n");
+            }
 
-            TextFlow descLabel = new TextFlow(nameText, text0, latinText, text1, groupText, text2, formText, text3, soilText, text4, reactionText, text5, waterText, text6, positionText, text7, frostText, text8, pestDisease, text9);
+            TextFlow descLabel = new TextFlow(nameText, textArray[0], latinText, textArray[1], groupText, textArray[2], formText, textArray[3], soilText, textArray[4],
+                    reactionText, textArray[5], waterText, textArray[6], positionText, textArray[7], frostText, textArray[8], pestDisease, textArray[9]);
             descLabel.setMaxWidth(280);
 
             descBox.getChildren().add(descLabel);

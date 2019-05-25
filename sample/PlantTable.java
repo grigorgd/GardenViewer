@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -39,6 +38,14 @@ public class PlantTable {
         latinNameColumn.setCellValueFactory(new PropertyValueFactory<>("latinName"));
         latinNameColumn.setMinWidth(MIN_COLUMN_WIDTH);
 
+        TableColumn<String, Plant> groupColumn = new TableColumn<>("Grupa");
+        groupColumn.setCellValueFactory(new PropertyValueFactory<>("group"));
+        groupColumn.setMinWidth(MIN_COLUMN_WIDTH);
+
+        TableColumn<String, Plant> formColumn = new TableColumn<>("Forma");
+        formColumn.setCellValueFactory(new PropertyValueFactory<>("form"));
+        formColumn.setMinWidth(MIN_COLUMN_WIDTH);
+
         TableColumn<String, Plant> soilColumn = new TableColumn<>("Gleba");
         soilColumn.setCellValueFactory(new PropertyValueFactory<>("soil"));
         soilColumn.setMinWidth(MIN_COLUMN_WIDTH);
@@ -47,16 +54,23 @@ public class PlantTable {
         reactionColumn.setCellValueFactory(new PropertyValueFactory<>("reaction"));
         reactionColumn.setMinWidth(MIN_COLUMN_WIDTH);
 
+        TableColumn<String, Plant> waterColumn = new TableColumn<>("Wilgotność");
+        waterColumn.setCellValueFactory(new PropertyValueFactory<>("water"));
+        waterColumn.setMinWidth(MIN_COLUMN_WIDTH);
+
         TableColumn<String, Plant> positionColumn = new TableColumn<>("Stanowisko");
         positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
         positionColumn.setMinWidth(MIN_COLUMN_WIDTH);
 
-        TableColumn<String, Plant> otherColumn = new TableColumn<>("Inne");
-        otherColumn.setCellValueFactory(new PropertyValueFactory<>("other"));
-        otherColumn.setMinWidth(MIN_COLUMN_WIDTH);
-        otherColumn.setPrefWidth(100);
+        TableColumn<String, Plant> frostColumn = new TableColumn<>("Mrozoodporność");
+        frostColumn.setCellValueFactory(new PropertyValueFactory<>("frost"));
+        frostColumn.setMinWidth(MIN_COLUMN_WIDTH);
 
-        tableView.getColumns().addAll(nameColumn, latinNameColumn, soilColumn, reactionColumn, positionColumn, otherColumn);
+        TableColumn<String, Plant> pestDiseaseColumn = new TableColumn<>("Odporność na choroby i szkodniki");
+        pestDiseaseColumn.setCellValueFactory(new PropertyValueFactory<>("frost"));
+        pestDiseaseColumn.setMinWidth(MIN_COLUMN_WIDTH);
+
+        tableView.getColumns().addAll(nameColumn, latinNameColumn, groupColumn, formColumn, soilColumn, reactionColumn, waterColumn, positionColumn, frostColumn, pestDiseaseColumn);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -82,9 +96,8 @@ public class PlantTable {
         ArrayList<Plant> plants = new ArrayList<>();
         for(Map.Entry<Shape, Description> entry : zones.entrySet()){
             if(((Zone)entry.getKey()).isPlant() && entry.getValue().getTxtFile() != null && entry.getValue().getTxtFile().exists()){
-                String description = TextLoader.read(entry.getValue().getTxtFile().toURI().getPath());
-                String[] split = description.split("\n");
-                plants.add(new Plant(entry.hashCode(), split[0], split[1], split[2], split[3], split[4], split[5]));
+                ArrayList<String> att = ContentManager.load(entry.getValue().getTxtFile().toURI().getPath());
+                plants.add(new Plant(entry.hashCode(), att.get(0), att.get(1), att.get(2), att.get(3), att.get(4), att.get(5), att.get(6), att.get(7), att.get(8), att.get(9)));
             }
         }
 

@@ -98,7 +98,7 @@ public class Controller {
 
         imgChooser = new FileChooser();
         imgChooser.setTitle("Dodaj obraz");
-        imgChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
+        imgChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("images", "*.jpg", "*.png", "*.jpeg"));
 
         saveChooser = new FileChooser();
         saveChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("TXT", "*.txt"));
@@ -596,8 +596,8 @@ public class Controller {
                         Shape shape = (Shape) target;
                         if(zones.get(shape).getTxtFile() != null || zones.get(shape).getImgFile() != null){
                             PlantView.display(zones.get(shape).getImgFile(), zones.get(shape).getTxtFile(),
-                                    workingArea.getScene().getWindow().getX() + 100,
-                                    workingArea.getScene().getWindow().getY() + 200);
+                                    workingArea.getScene().getWindow().getX() + 15,
+                                    workingArea.getScene().getWindow().getY() + 65);
                         }
                     }
                 }
